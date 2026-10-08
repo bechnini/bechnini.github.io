@@ -234,7 +234,7 @@
     <a href="/" class="active">~/</a>
     <a href="/posts.html">~/posts</a>
     <a href="/projects.html">~/projects</a>
-    <a href="https://github.com/bechnini">~/github</a>
+    <a href="https://github.com/bernini">~/github</a>
   </nav>
 
   <section class="terminal-window">
@@ -291,7 +291,7 @@
         <h3>maze-solving robot</h3>
         <p>Autonomous wall-following robot using MPU6050 + dual PID. Competed at INSAT Robolympix 4.0.</p>
         <div class="links">
-          <a href="https://github.com/bernini">[repo]</a>
+          <a href="https://github.com/bechnini">[repo]</a>
           <a href="/content/projects/maze-solving-robot.html">[read →]</a>
         </div>
       </div>
@@ -303,192 +303,5 @@
 <footer>// bernini — built with spite and monospace</footer>
 
 <script src="/assets/app.js"></script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>barnoun</title>
-  <link rel="icon" type="favicon.ico" href="favicon.ico">
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg:       #0d0d0f;
-      --surface:  #131316;
-      --surface2: #1a1a1f;
-      --border:   #2a2a32;
-      --border2:  #3a3a45;
-      --text:     #e8e8f0;
-      --muted:    #6e6e82;
-      --accent:   #7c6af7;
-      --green:    #3dd68c;
-      --amber:    #f5a623;
-      --blue:     #4d9cff;
-      --purple:   #c084fc;
-      --pink:     #f472b6;
-      --cyan:     #06b6d4;
-      --red:      #ef4444;
-      --teal:     #14b8a6;
-      --mono:     'JetBrains Mono', monospace;
-      --sans:     'Inter', sans-serif;
-    }
-    body { font-family: var(--sans); background: var(--bg); color: var(--text); min-height: 100vh; }
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
-
-    header { border-bottom: 1px solid var(--border); background: var(--surface); position: sticky; top: 0; z-index: 10; }
-    .header-inner { max-width: 860px; margin: 0 auto; padding: 0 2rem; height: 58px; display: flex; align-items: center; justify-content: space-between; }
-    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-    .logo-box { width: 28px; height: 28px; background: var(--accent); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 13px; font-weight: 600; color: #fff; }
-    .logo-name { font-family: var(--mono); font-size: 14px; font-weight: 600; color: var(--text); letter-spacing: -0.3px; }
-    .logo-name span { color: var(--accent); }
-    nav { display: flex; gap: 4px; }
-    nav a { font-size: 13px; font-weight: 500; color: var(--muted); text-decoration: none; padding: 5px 12px; border-radius: 6px; transition: all .15s; }
-    nav a:hover { color: var(--text); background: var(--surface2); }
-
-    .hero { max-width: 860px; margin: 0 auto; padding: 4rem 2rem 3rem; }
-    .eyebrow { font-family: var(--mono); font-size: 11px; font-weight: 500; color: var(--accent); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 8px; }
-    .eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--accent); display: inline-block; }
-    .hero h1 { font-family: var(--mono); font-size: 38px; font-weight: 600; line-height: 1.2; letter-spacing: -1px; margin-bottom: 1rem; }
-    .hero h1 em { font-style: normal; color: var(--accent); }
-    .hero p { font-size: 15px; color: var(--muted); line-height: 1.7; max-width: 500px; }
-    .hero-stats { display: flex; gap: 2.5rem; margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--border); }
-    .stat-num { font-family: var(--mono); font-size: 22px; font-weight: 600; color: var(--text); }
-    .stat-label { font-size: 12px; color: var(--muted); margin-top: 2px; }
-
-    .filter-bar { max-width: 860px; margin: 0 auto; padding: 0 2rem 1.5rem; display: flex; gap: 8px; flex-wrap: wrap; }
-    .tag-btn { font-family: var(--mono); font-size: 11px; font-weight: 500; padding: 5px 14px; border-radius: 20px; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; transition: all .15s; letter-spacing: .3px; }
-    .tag-btn:hover { border-color: var(--border2); color: var(--text); }
-    .tag-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
-
-    .section-label { max-width: 860px; margin: 0 auto; padding: 0.75rem 2rem; font-family: var(--mono); font-size: 11px; color: var(--muted); border-bottom: 1px solid var(--border); }
-
-    .posts { max-width: 860px; margin: 0 auto; padding: 0 2rem 5rem; }
-    .post-item { display: grid; grid-template-columns: 108px 1fr auto; align-items: center; gap: 1.5rem; padding: 1.1rem 0; border-bottom: 1px solid var(--border); text-decoration: none; color: inherit; transition: all .15s; }
-    .post-item:hover .post-title { color: var(--accent); }
-    .post-item:hover .arrow { opacity: 1; transform: translateX(0); }
-    .post-date { font-family: var(--mono); font-size: 11px; color: var(--muted); }
-    .post-title { font-size: 14px; font-weight: 500; color: var(--text); transition: color .15s; }
-    .post-right { display: flex; align-items: center; gap: 10px; }
-    .post-tag { font-family: var(--mono); font-size: 10px; font-weight: 500; padding: 3px 10px; border-radius: 4px; letter-spacing: .3px; }
-
-    /* 🎨 CATEGORY COLORS - Each one unique */
-    .t-net { background: rgba(77, 156, 255, 0.15); color: #4d9cff; }      /* Networking - Bright Blue */
-    .t-lnx { background: rgba(61, 214, 140, 0.15); color: #3dd68c; }      /* Linux - Mint Green */
-    .t-dev { background: rgba(124, 106, 247, 0.15); color: #7c6af7; }     /* Dev - Purple */
-    .t-rob { background: rgba(245, 166, 35, 0.15); color: #f5a623; }      /* Robotics - Amber/Orange */
-    .t-gde { background: rgba(20, 184, 166, 0.15); color: #14b8a6; }      /* Guide - Teal (NEW COLOR) */
-    .t-emb { background: rgba(6, 182, 212, 0.15); color: #06b6d4; }       /* Embedded - Cyan */
-    .t-sec { background: rgba(239, 68, 68, 0.15); color: #ef4444; }       /* Security - Red */
-    .t-oth { background: rgba(236, 72, 153, 0.15); color: #f472b6; }      /* Other - Pink */
-
-    .arrow { font-size: 14px; color: var(--muted); opacity: 0; transform: translateX(-5px); transition: all .15s; }
-    .post-item[hidden] { display: none; }
-
-    footer { max-width: 860px; margin: 0 auto; padding: 1.5rem 2rem; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-    .footer-txt { font-family: var(--mono); font-size: 11px; color: var(--muted); }
-    .live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:.4; } }
-  </style>
-</head>
-<body>
-
-<header>
-  <div class="header-inner">
-    <a class="logo" href="index.html">
-      <div class="logo-box">#</div>
-      <span class="logo-name">barnoun<span>.</span>blog</span>
-    </a>
-    <nav>
-      <a href="index.html">posts</a>
-    </nav>
-  </div>
-</header>
-
-<section class="hero">
-  <div class="eyebrow">personal knowledge base</div>
-  <h1>Notes on <em>systems</em>,<br>networks &amp; code.</h1>
-  <p>Raw documentation, guides, and write-ups on things I've built, broken, and learned.</p>
-  <div class="hero-stats">
-    <div><div class="stat-num" id="total-count">4</div><div class="stat-label">total posts</div></div>
-    <div><div class="stat-num">7</div><div class="stat-label">topics</div></div>
-  </div>
-</section>
-
-<div class="filter-bar">
-  <button class="tag-btn active" data-filter="all">all posts</button>
-  <button class="tag-btn" data-filter="networking">networking</button>
-  <button class="tag-btn" data-filter="linux">linux</button>
-  <button class="tag-btn" data-filter="dev">dev</button>
-  <button class="tag-btn" data-filter="robotics">robotics</button>
-  <button class="tag-btn" data-filter="guide">guide</button>
-  <button class="tag-btn" data-filter="security">security</button>
-</div>
-
-<div class="section-label">// <span id="filter-label">all posts</span></div>
-
-<main class="posts" id="post-list">
-
-  <!-- 🦾 MAZE ROBOT POST -->
-  <a class="post-item" href="posts/hattab.html" data-tag="robotics">
-    <span class="post-date">2026-04-19</span>
-    <span class="post-title">Maze-Solving Robot</span>
-    <span class="post-right"><span class="post-tag t-rob">robotics</span><span class="arrow">→</span></span>
-  </a>
-
-  <!-- 📘 ORG MODE GUIDE POST -->
-  <a class="post-item" href="posts/orgmode.html" data-tag="guide">
-    <span class="post-date">2026-05-06</span>
-    <span class="post-title">Org mode guide</span>
-    <span class="post-right"><span class="post-tag t-gde">guide</span><span class="arrow">→</span></span>
-  </a>
-
-    <a class="post-item" href="posts/pid.html" data-tag="guide">
-    <span class="post-date">2025-11-23</span>
-    <span class="post-title">PID</span>
-    <span class="post-right"><span class="post-tag t-gde">guide</span><span class="arrow">→</span></span>
-  </a>
-
-
-
-</main>
-
-<footer>
-  <span class="footer-txt">built with github pages</span>
-  <span class="live-dot" title="live"></span>
-</footer>
-
-<script>
-  const btns = document.querySelectorAll('.tag-btn');
-  const items = document.querySelectorAll('.post-item');
-  const label = document.getElementById('filter-label');
-  const count = document.getElementById('total-count');
-  
-  function updateCount() {
-    let v = 0;
-    items.forEach(i => { if (!i.hidden) v++; });
-    count.textContent = v;
-  }
-  
-  btns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      btns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const f = btn.dataset.filter;
-      label.textContent = f === 'all' ? 'all posts' : f;
-      items.forEach(i => { 
-        const hide = f !== 'all' && i.dataset.tag !== f; 
-        i.hidden = hide; 
-      });
-      updateCount();
-    });
-  });
-  
-  updateCount();
-</script>
 </body>
 </html>
