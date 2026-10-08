@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Org-mode: The Only Guide You'll Ever Need // bernini</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+
+<canvas id="matrix" aria-hidden="true"></canvas>
+
+<div class="side-gutter left">
+<pre class="side-texture left" aria-hidden="true">   ┌─────────┐
+   │ ▓▓▓▓▓▓▓ │
+┌──┤ ░░░░░░░ ├──┐
+│  │ ▓▓▓▓▓▓▓ │  │
+│  └────┬────┘  │
+│       │       │
+●───────●───────●
+│       │       │
+│   ┌───┴───┐   │
+│   │  ▚▚▚  │   │
+│   │ ▚▚▚▚▚ │   │
+│   │  ▚▚▚  │   │
+│   └───┬───┘   │
+│       │       │
+●───────●───────●
+│       │       │
+│  ┌────┴────┐  │
+│  │ ▒▒▒▒▒▒▒ │  │
+└──┤ ███████ ├──┘
+   │ ▒▒▒▒▒▒▒ │
+   └────┬────┘
+        │
+┌───────┴───────┐
+│ ▚▚▚  ░░░  ▚▚▚ │
+└───────┬───────┘
+        │
+╔═══════╧═══════╗
+║ ▓▓▓ ░░░ ▓▓▓ ░ ║
+║ ░░░ ▓▓▓ ░░░ ▓ ║
+║ ▓▓▓ ░░░ ▓▓▓ ░ ║
+╚═══════╤═══════╝
+        │
+┌───────┴───────┐
+│   ┌───┐ ┌───┐ │
+│   │▓▓▓│ │░░░│ │
+│   └─┬─┘ └─┬─┘ │
+└─────┼─────┼───┘
+      ●     ●
+      │     │
+┌─────┴─────┴───┐
+│ ▚▚▚  ▓▓▓  ░░░ │
+│ ░░░  ▚▚▚  ▓▓▓ │
+│ ▓▓▓  ░░░  ▚▚▚ │
+└───────┬───────┘
+        │
+╔═══════╧═══════╗
+║ ▓▓▓▓▓▓▓▓▓▓▓▓▓ ║
+║ ░░░░░░░░░░░░░ ║
+║ ▓▓▓▓▓▓▓▓▓▓▓▓▓ ║
+╚═══════════════╝</pre>
+<pre class="side-texture left" aria-hidden="true">   ┌─────────┐
+   │ ▓▓▓▓▓▓▓ │
+┌──┤ ░░░░░░░ ├──┐
+│  │ ▓▓▓▓▓▓▓ │  │
+│  └────┬────┘  │
+│       │       │
+●───────●───────●
+│       │       │
+│   ┌───┴───┐   │
+│   │  ▚▚▚  │   │
+│   │ ▚▚▚▚▚ │   │
+│   │  ▚▚▚  │   │
+│   └───┬───┘   │
+│       │       │
+●───────●───────●
+│       │       │
+│  ┌────┴────┐  │
+│  │ ▒▒▒▒▒▒▒ │  │
+└──┤ ███████ ├──┘
+   │ ▒▒▒▒▒▒▒ │
+   └────┬────┘
+        │
+┌───────┴───────┐
+│ ▚▚▚  ░░░  ▚▚▚ │
+└───────┬───────┘
+        │
+╔═══════╧═══════╗
+║ ▓▓▓ ░░░ ▓▓▓ ░ ║
+║ ░░░ ▓▓▓ ░░░ ▓ ║
+║ ▓▓▓ ░░░ ▓▓▓ ░ ║
+╚═══════╤═══════╝
+        │
+┌───────┴───────┐
+│   ┌───┐ ┌───┐ │
+│   │▓▓▓│ │░░░│ │
+│   └─┬─┘ └─┬─┘ │
+└─────┼─────┼───┘
+      ●     ●
+      │     │
+┌─────┴─────┴───┐
+│ ▚▚▚  ▓▓▓  ░░░ │
+│ ░░░  ▚▚▚  ▓▓▓ │
+│ ▓▓▓  ░░░  ▚▚▚ │
+└───────┬───────┘
+        │
+╔═══════╧═══════╗
+║ ▓▓▓▓▓▓▓▓▓▓▓▓▓ ║
+║ ░░░░░░░░░░░░░ ║
+║ ▓▓▓▓▓▓▓▓▓▓▓▓▓ ║
+╚═══════════════╝</pre>
+</div>
+
+<div class="side-gutter right">
+<pre class="side-texture right" aria-hidden="true">   ┌─────────┐
+   │ ░░░░░░░ │
+┌──┤ ▓▓▓▓▓▓▓ ├──┐
+│  │ ░░░░░░░ │  │
+│  └────┬────┘  │
+│       │       │
+●───────●───────●
+│       │       │
+│  ┌────┴────┐  │
+│  │  ░░░░░  │  │
+│  │ ░░░░░░░ │  │
+│  │  ░░░░░  │  │
+│  └────┬────┘  │
+│       │       │
+●───────●───────●
+│       │       │
+│   ┌───┴───┐   │
+│   │ █████ │   │
+└───┤ █████ ├───┘
+    │ █████ │
+    └───┬───┘
+        │
+╔═══════╧═══════╗
+║ ░░░  ▓▓▓  ░░░ ║
+╚═══════╤═══════╝
+        │
+┌───────┴───────┐
+│  ┌───┐ ┌───┐  │
+│  │░░░│ │▓▓▓│  │
+│  └─┬─┘ └─┬─┘  │
+└────┼─────┼────┘
+     ●     ●
+     │     │
+╔════╧═════╧════╗
+║ ▓▓▓ ░░░ ▓▓▓ ░ ║
+║ ░░░ ▓▓▓ ░░░ ▓ ║
+╚═══════╤═══════╝
+        │
+┌───────┴───────┐
+│  ┌─────────┐  │
+│  │ ▒▒▒▒▒▒▒ │  │
+│  │ ███████ │  │
+│  └────┬────┘  │
+└───────┼───────┘
+        │
+        ●
+        │
+┌───────┴───────┐
+│ ▚ ░ ▓ ▚ ░ ▓ ▚ │
+│ ░ ▓ ▚ ░ ▓ ▚ ░ │
+└───────┬───────┘</pre>
+<pre class="side-texture right" aria-hidden="true">   ┌─────────┐
+   │ ░░░░░░░ │
+┌──┤ ▓▓▓▓▓▓▓ ├──┐
+│  │ ░░░░░░░ │  │
+│  └────┬────┘  │
+│       │       │
+●───────●───────●
+│       │       │
+│  ┌────┴────┐  │
+│  │  ░░░░░  │  │
+│  │ ░░░░░░░ │  │
+│  │  ░░░░░  │  │
+│  └────┬────┘  │
+│       │       │
+●───────●───────●
+│       │       │
+│   ┌───┴───┐   │
+│   │ █████ │   │
+└───┤ █████ ├───┘
+    │ █████ │
+    └───┬───┘
+        │
+╔═══════╧═══════╗
+║ ░░░  ▓▓▓  ░░░ ║
+╚═══════╤═══════╝
+        │
+┌───────┴───────┐
+│  ┌───┐ ┌───┐  │
+│  │░░░│ │▓▓▓│  │
+│  └─┬─┘ └─┬─┘  │
+└────┼─────┼────┘
+     ●     ●
+     │     │
+╔════╧═════╧════╗
+║ ▓▓▓ ░░░ ▓▓▓ ░ ║
+║ ░░░ ▓▓▓ ░░░ ▓ ║
+╚═══════╤═══════╝
+        │
+┌───────┴───────┐
+│  ┌─────────┐  │
+│  │ ▒▒▒▒▒▒▒ │  │
+│  │ ███████ │  │
+│  └────┬────┘  │
+└───────┼───────┘
+        │
+        ●
+        │
+┌───────┴───────┐
+│ ▚ ░ ▓ ▚ ░ ▓ ▚ │
+│ ░ ▓ ▚ ░ ▓ ▚ ░ │
+└───────┬───────┘</pre>
+</div>
+
+<header class="metal-band"></header>
+
+<main class="reading">
+
+  <nav class="nav-strip">
+    <a href="/">~/</a>
+    <a href="/posts.html" class="active">~/posts</a>
+    <a href="/projects.html">~/projects</a>
+    <a href="https://github.com/bernini">~/github</a>
+  </nav>
+
+  <article class="reading">
+
+    <a class="back" href="/posts.html">[ ← back to posts ]</a>
+
+    <header>
+      <h1>Org-mode: The Only Guide You'll Ever Need</h1>
+      <div class="meta">
+        <span>tools</span>
+        <span class="dot">·</span>
+        <span>2026-05-07</span>
+      </div>
+    </header>
+
+    <p>Org-mode is Emacs' superpower. It's a note-taking tool, a task manager, a document processor, and a lifestyle. Here's everything you need to get started.</p>
+
+    <h2>Headings &amp; structure</h2>
+
+    <p>Headings start with <code>*</code> (asterisks). More asterisks = deeper nesting.</p>
+
+    <pre><code>* First heading
+** This is a subheading for the first heading
+ble ble ble bla bla
+
+* Second heading                                                      :emacs:
+** This is the second heading in the second main heading
+etc etc</code></pre>
+
+    <p>Pro tip: Press <code>TAB</code> on a heading to collapse/expand its subtree. <code>Shift+TAB</code> cycles the entire document.</p>
+
+    <h2>Inline formatting</h2>
+
+    <p>Org-mode uses simple markers for text styling:</p>
+
+    <pre><code>=printf("hello world");=
+~Verbatim text~</code></pre>
+
+    <ul>
+      <li><code>=code=</code> for inline code snippets</li>
+      <li><code>~verbatim~</code> for literal text (no processing)</li>
+      <li><code>*bold*</code>, <code>/italic/</code>, <code>_underline_</code>, <code>+strike-through+</code></li>
+    </ul>
+
+    <h2>Lists (bullets &amp; numbers)</h2>
+
+    <p>Lists are intuitive. Use <code>+</code>, <code>-</code>, or <code>*</code> for unordered lists. Numbers with <code>.</code> or <code>)</code> for ordered lists.</p>
+
+    <pre><code>* In this there are lists
++ First item
++ Second item
+  - Sub-item with dash
+  - Another sub-item
+
+1. Numbered item
+2) Also works with parentheses
+3. Third item</code></pre>
+
+    <p>Keybindings: <code>M-enter</code> = new item. <code>M-up/down</code> = move items. <code>M-left/right</code> = indent/outdent.</p>
+
+    <h2>Links everywhere</h2>
+
+    <p>Links follow the pattern: <code>[[url][description]]</code></p>
+
+    <pre><code>* This header have a link to duckduckgo
+[[https://duckduckgo.com][Duck Duck Go website]]
+
+* Local file link
+[[file:~/Documents/notes.org][My notes]]
+
+* Internal heading link
+[[#my-heading][Jump to heading]]</code></pre>
+
+    <p>Press <code>C-c C-o</code> (open link) while on any link to follow it. For internal links, add <code>:CUSTOM_ID:</code> to the heading property.</p>
+
+    <h2>TODO states &amp; task management</h2>
+
+    <p>Org-mode natively supports TODO keywords. Just type <code>TODO</code> after an asterisk.</p>
+
+    <pre><code>* TODO Bla bla bla
+* DONE Ble ble ble
+CLOSED: [2026-05-02 21:34]</code></pre>
+
+    <p>Keybindings:</p>
+    <ul>
+      <li><code>S-left/right</code> → cycle TODO states (TODO → DONE → back)</li>
+      <li><code>C-c C-t</code> → change TODO state</li>
+      <li><code>C-c .</code> → insert timestamp (like CLOSED above)</li>
+    </ul>
+
+    <h2>Tags</h2>
+
+    <p>Tags go inside <code>: :</code> at the end of a heading. They're searchable!</p>
+
+    <pre><code>* Tags                                                                 :tags:
+ C-c C-c to put a tag to a header
+ C-c \ to search for a specific tag</code></pre>
+
+    <p>Workflow:</p>
+    <ul>
+      <li>Type <code>C-c C-c</code> while on a heading → Enter tag name (e.g., <code>emacs</code> or <code>urgent</code>)</li>
+      <li>Press <code>C-c \</code> → Type a tag → See only headings with that tag</li>
+      <li>Multiple tags: <code>:emacs:work:project:</code></li>
+    </ul>
+
+    <h2>Essential keybindings cheatsheet</h2>
+
+    <table>
+      <thead>
+        <tr><th>Key</th><th>Action</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="mono">C-c C-t</td><td>Cycle TODO state</td></tr>
+        <tr><td class="mono">C-c ,</td><td>Set priority (A/B/C)</td></tr>
+        <tr><td class="mono">C-c .</td><td>Insert timestamp</td></tr>
+        <tr><td class="mono">C-c ;</td><td>Toggle comment line</td></tr>
+        <tr><td class="mono">C-c C-x C-b</td><td>Show todo list</td></tr>
+        <tr><td class="mono">C-c C-o</td><td>Open link</td></tr>
+        <tr><td class="mono">C-c '</td><td>Edit source block</td></tr>
+        <tr><td class="mono">C-c C-c</td><td>Apply changes/refresh</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Exporting to HTML (like this page!)</h2>
+
+    <p>Org-mode can export to HTML, PDF, LaTeX, Markdown, and more.</p>
+
+    <pre><code>C-c C-e h h   → Export to HTML and open in browser
+C-c C-e l p   → Export to PDF (LaTeX)
+C-c C-e m m   → Export to Markdown</code></pre>
+
+    <p>Add these to the top of your Org file for more control:</p>
+
+    <pre><code>#+TITLE: My Document
+#+AUTHOR: bernini
+#+DATE: 2026-05-07
+#+OPTIONS: toc:nil num:nil</code></pre>
+
+  </article>
+
+</main>
+
+<footer>// bernini — built with spite and monospace</footer>
+
+<script src="/assets/app.js"></script>
+</body>
+</html>
