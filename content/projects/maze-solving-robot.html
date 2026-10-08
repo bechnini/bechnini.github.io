@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maze-Solving Robot // bernini</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+
+<canvas id="matrix" aria-hidden="true"></canvas>
+
+<div class="side-gutter left">
+<pre class="side-texture left" aria-hidden="true">   ┌─────────┐
+   │ ▓▓▓▓▓▓▓ │
+┌──┤ ░░░░░░░ ├──┐
+│  │ ▓▓▓▓▓▓▓ │  │
+│  └────┬────┘  │
+│       │       │
+●───────●───────●
+│       │       │
+│   ┌───┴───┐   │
+│   │  ▚▚▚  │   │
+│   │ ▚▚▚▚▚ │   │
+│   │  ▚▚▚  │   │
+│   └───┬───┘   │
+│       │       │
+●───────●───────●
+│       │       │
+│  ┌────┴────┐  │
+│  │ ▒▒▒▒▒▒▒ │  │
+└──┤ ███████ ├──┘
+   │ ▒▒▒▒▒▒▒ │
+   └────┬────┘
+        │
+┌───────┴───────┐
+│ ▚▚▚  ░░░  ▚▚▚ │
+└───────┬───────┘
+        │
+╔═══════╧═══════╗
+║ ▓▓▓ ░░░ ▓▓▓ ░ ║
+║ ░░░ ▓▓▓ ░░░ ▓ ║
+║ ▓▓▓ ░░░ ▓▓▓ ░ ║
+╚═══════╤═══════╝
+        │
+┌───────┴───────┐
+│   ┌───┐ ┌───┐ │
+│   │▓▓▓│ │░░░│ │
+│   └─┬─┘ └─┬─┘ │
+└─────┼─────┼───┘
+      ●     ●
+      │     │
+┌─────┴─────┴───┐
+│ ▚▚▚  ▓▓▓  ░░░ │
+│ ░░░  ▚▚▚  ▓▓▓ │
+│ ▓▓▓  ░░░  ▚▚▚ │
+└───────┬───────┘
+        │
+╔═══════╧═══════╗
+║ ▓▓▓▓▓▓▓▓▓▓▓▓▓ ║
+║ ░░░░░░░░░░░░░ ║
+║ ▓▓▓▓▓▓▓▓▓▓▓▓▓ ║
+╚═══════════════╝</pre>
+<pre class="side-texture left" aria-hidden="true">   ┌─────────┐
+   │ ▓▓▓▓▓▓▓ │
+┌──┤ ░░░░░░░ ├──┐
+│  │ ▓▓▓▓▓▓▓ │  │
+│  └────┬────┘  │
+│       │       │
+●───────●───────●
+│       │       │
+│   ┌───┴───┐   │
+│   │  ▚▚▚  │   │
+│   │ ▚▚▚▚▚ │   │
+│   │  ▚▚▚  │   │
+│   └───┬───┘   │
+│       │       │
+●───────●───────●
+│       │       │
+│  ┌────┴────┐  │
+│  │ ▒▒▒▒▒▒▒ │  │
+└──┤ ███████ ├──┘
+   │ ▒▒▒▒▒▒▒ │
+   └────┬────┘
+        │
+┌───────┴───────┐
+│ ▚▚▚  ░░░  ▚▚▚ │
+└───────┬───────┘
+        │
+╔═══════╧═══════╗
+║ ▓▓▓ ░░░ ▓▓▓ ░ ║
+║ ░░░ ▓▓▓ ░░░ ▓ ║
+║ ▓▓▓ ░░░ ▓▓▓ ░ ║
+╚═══════╤═══════╝
+        │
+┌───────┴───────┐
+│   ┌───┐ ┌───┐ │
+│   │▓▓▓│ │░░░│ │
+│   └─┬─┘ └─┬─┘ │
+└─────┼─────┼───┘
+      ●     ●
+      │     │
+┌─────┴─────┴───┐
+│ ▚▚▚  ▓▓▓  ░░░ │
+│ ░░░  ▚▚▚  ▓▓▓ │
+│ ▓▓▓  ░░░  ▚▚▚ │
+└───────┬───────┘
+        │
+╔═══════╧═══════╗
+║ ▓▓▓▓▓▓▓▓▓▓▓▓▓ ║
+║ ░░░░░░░░░░░░░ ║
+║ ▓▓▓▓▓▓▓▓▓▓▓▓▓ ║
+╚═══════════════╝</pre>
+</div>
+
+<div class="side-gutter right">
+<pre class="side-texture right" aria-hidden="true">   ┌─────────┐
+   │ ░░░░░░░ │
+┌──┤ ▓▓▓▓▓▓▓ ├──┐
+│  │ ░░░░░░░ │  │
+│  └────┬────┘  │
+│       │       │
+●───────●───────●
+│       │       │
+│  ┌────┴────┐  │
+│  │  ░░░░░  │  │
+│  │ ░░░░░░░ │  │
+│  │  ░░░░░  │  │
+│  └────┬────┘  │
+│       │       │
+●───────●───────●
+│       │       │
+│   ┌───┴───┐   │
+│   │ █████ │   │
+└───┤ █████ ├───┘
+    │ █████ │
+    └───┬───┘
+        │
+╔═══════╧═══════╗
+║ ░░░  ▓▓▓  ░░░ ║
+╚═══════╤═══════╝
+        │
+┌───────┴───────┐
+│  ┌───┐ ┌───┐  │
+│  │░░░│ │▓▓▓│  │
+│  └─┬─┘ └─┬─┘  │
+└────┼─────┼────┘
+     ●     ●
+     │     │
+╔════╧═════╧════╗
+║ ▓▓▓ ░░░ ▓▓▓ ░ ║
+║ ░░░ ▓▓▓ ░░░ ▓ ║
+╚═══════╤═══════╝
+        │
+┌───────┴───────┐
+│  ┌─────────┐  │
+│  │ ▒▒▒▒▒▒▒ │  │
+│  │ ███████ │  │
+│  └────┬────┘  │
+└───────┼───────┘
+        │
+        ●
+        │
+┌───────┴───────┐
+│ ▚ ░ ▓ ▚ ░ ▓ ▚ │
+│ ░ ▓ ▚ ░ ▓ ▚ ░ │
+└───────┬───────┘</pre>
+<pre class="side-texture right" aria-hidden="true">   ┌─────────┐
+   │ ░░░░░░░ │
+┌──┤ ▓▓▓▓▓▓▓ ├──┐
+│  │ ░░░░░░░ │  │
+│  └────┬────┘  │
+│       │       │
+●───────●───────●
+│       │       │
+│  ┌────┴────┐  │
+│  │  ░░░░░  │  │
+│  │ ░░░░░░░ │  │
+│  │  ░░░░░  │  │
+│  └────┬────┘  │
+│       │       │
+●───────●───────●
+│       │       │
+│   ┌───┴───┐   │
+│   │ █████ │   │
+└───┤ █████ ├───┘
+    │ █████ │
+    └───┬───┘
+        │
+╔═══════╧═══════╗
+║ ░░░  ▓▓▓  ░░░ ║
+╚═══════╤═══════╝
+        │
+┌───────┴───────┐
+│  ┌───┐ ┌───┐  │
+│  │░░░│ │▓▓▓│  │
+│  └─┬─┘ └─┬─┘  │
+└────┼─────┼────┘
+     ●     ●
+     │     │
+╔════╧═════╧════╗
+║ ▓▓▓ ░░░ ▓▓▓ ░ ║
+║ ░░░ ▓▓▓ ░░░ ▓ ║
+╚═══════╤═══════╝
+        │
+┌───────┴───────┐
+│  ┌─────────┐  │
+│  │ ▒▒▒▒▒▒▒ │  │
+│  │ ███████ │  │
+│  └────┬────┘  │
+└───────┼───────┘
+        │
+        ●
+        │
+┌───────┴───────┐
+│ ▚ ░ ▓ ▚ ░ ▓ ▚ │
+│ ░ ▓ ▚ ░ ▓ ▚ ░ │
+└───────┬───────┘</pre>
+</div>
+
+<header class="metal-band"></header>
+
+<main class="reading">
+
+  <nav class="nav-strip">
+    <a href="/">~/</a>
+    <a href="/posts.html">~/posts</a>
+    <a href="/projects.html" class="active">~/projects</a>
+    <a href="https://github.com/bernini">~/github</a>
+  </nav>
+
+  <article class="reading">
+
+    <a class="back" href="/projects.html">[ ← back to projects ]</a>
+
+    <header>
+      <h1>Maze-Solving Robot</h1>
+      <div class="meta">
+        <span>robotics</span>
+        <span class="dot">·</span>
+        <span>MPU6050 + dual PID</span>
+        <span class="dot">·</span>
+        <span>INSAT Robolympix 4.0</span>
+      </div>
+    </header>
+
+    <p>An autonomous maze-solving robot built with Arduino, utilizing three ultrasonic sensors for spatial awareness and an MPU6050 IMU for precise directional control. The robot employs a wall-following algorithm combined with a dual-PID system to maintain stability and accuracy. Competed in the autonomous challenge at INSAT Robolympix 4.0.</p>
+
+    <h2>Libraries &amp; initialization</h2>
+
+    <p>The MPU6050 IMU handles all orientation tracking. These libraries are essential for I2C communication and gyro data processing:</p>
+
+    <pre><code>#include &lt;Wire.h&gt;
+#include &lt;MPU6050_tockn.h&gt;
+
+MPU6050 mpu6050(Wire);  // Initialize the IMU</code></pre>
+
+    <h2>Pin mapping</h2>
+
+    <table>
+      <thead>
+        <tr><th>Component</th><th>Pin</th><th>Function</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Left Motor</td><td class="mono">PWM 6 (Fwd), 3 (Bwd)</td><td>Locomotion</td></tr>
+        <tr><td>Right Motor</td><td class="mono">PWM 5 (Fwd), 9 (Bwd)</td><td>Locomotion</td></tr>
+        <tr><td>Ultrasonic Front</td><td class="mono">Trig 12 / Echo 13</td><td>Obstacle detection</td></tr>
+        <tr><td>Ultrasonic Left</td><td class="mono">Trig 4 / Echo 10</td><td>Wall detection</td></tr>
+        <tr><td>Ultrasonic Right</td><td class="mono">Trig 7 / Echo 8</td><td>Wall detection</td></tr>
+        <tr><td>MPU6050</td><td class="mono">I2C (SDA/SCL)</td><td>Gyroscopic heading</td></tr>
+        <tr><td>Start Button</td><td class="mono">2</td><td>Calibration &amp; launch</td></tr>
+        <tr><td>LED</td><td class="mono">11</td><td>Status indicator</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Ultrasonic sensor reading</h2>
+
+    <p>Each sensor reading is averaged over multiple samples to reduce noise. The <code>pulseIn()</code> timeout prevents infinite blocking:</p>
+
+    <pre><code>long readSensor(int trig, int echo) {
+  digitalWrite(trig, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trig, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trig, LOW);
+  long duration = pulseIn(echo, HIGH, 30000);
+  if (duration == 0) return sensorMax;
+  long dist = duration * 0.034 / 2;
+  return constrain(dist, sensorMin, sensorMax);
+}</code></pre>
+
+    <h2>Motor control functions</h2>
+
+    <p>Simple abstractions for driving, stopping, and differential movement:</p>
+
+    <pre><code>void stopMotors() {
+  analogWrite(in1, 0); analogWrite(in2, 0);
+  analogWrite(in3, 0); analogWrite(in4, 0);
+}
+
+void driveForward(int spd) {
+  analogWrite(in1, spd); analogWrite(in2, 0);
+  analogWrite(in3, spd); analogWrite(in4, 0);
+}
+
+void setMotors(int l, int r) {
+  analogWrite(in1, constrain(l, 0, 255)); analogWrite(in2, 0);
+  analogWrite(in3, constrain(r, 0, 255)); analogWrite(in4, 0);
+}</code></pre>
+
+    <h2>PID control — straight line walking</h2>
+
+    <p>When moving forward, the robot uses a full PID loop to ensure perfectly straight travel, correcting for motor inconsistencies or physical bumps.</p>
+
+    <pre><code>void pidStep() {
+  mpu6050.update();
+  float error = sleft() - sright();  // Keep centered between walls
+  integral += error;
+  integral = constrain(integral, -100, 100);
+  derivative = error - preverror;
+  float correction = Kp * error + Ki * integral + Kd * derivative;
+  int l = constrain(basespeed + correction, minspeed, maxspeed);
+  int r = constrain(basespeed - correction, minspeed, maxspeed);
+  setMotors(l, r);
+  preverror = error;
+}</code></pre>
+
+    <h2>Pivot PID — precise turns</h2>
+
+    <p>Precise 90° turns are difficult with simple timers due to battery voltage fluctuations. This PD controller handles it:</p>
+
+    <pre><code>void pivotToAngle(float target_angle) {
+  t = millis();
+  while (true) {
+    mpu6050.update();
+    float current_yaw = mpu6050.getAngleZ();
+    float turn_error = target_angle - current_yaw;
+
+    if (abs(turn_error) &lt; 5) { stopMotors(); break; }
+    if (millis() - t &gt; 2500) { break; }
+
+    float turn_diff = turn_error - last_turn_error;
+    float turn_correction = (p_turn * turn_error) + (d_turn * turn_diff);
+    last_turn_error = turn_error;
+    int motor_pwm = constrain(turn_base_speed + abs(turn_correction), 0, max_pwm);
+
+    if (turn_error &gt; 0) {
+      analogWrite(in1, motor_pwm); analogWrite(in2, 0);
+      analogWrite(in3, 0); analogWrite(in4, motor_pwm);
+    } else {
+      analogWrite(in1, 0); analogWrite(in2, motor_pwm);
+      analogWrite(in3, motor_pwm); analogWrite(in4, 0);
+    }
+  }
+  tangle = target_angle;
+  integral = 0; preverror = 0;
+}</code></pre>
+
+    <h2>U-turn function</h2>
+
+    <p>Two consecutive 78° pivots (since 90° was overshooting in testing):</p>
+
+    <pre><code>void uTurn() {
+  pivotToAngle(78);
+  delay(100);
+  pivotToAngle(78);
+}</code></pre>
+
+    <h2>The algorithm — right-hand rule</h2>
+
+    <p>The robot implements the Right-Hand Rule (wall follower). This is an "uninformed" maze-solving algorithm where the robot keeps the right wall at a constant relative distance.</p>
+
+    <p>Decision priority:</p>
+    <ol>
+      <li><strong>Turn Right</strong> — if right sensor detects an opening (dist &gt; 24cm), move forward slightly, then execute −79° pivot.</li>
+      <li><strong>Drive Forward</strong> — if right turn not possible but front path clear, continue forward using PID stabilization.</li>
+      <li><strong>Turn Left</strong> — if right AND front blocked but left open, execute +79° pivot.</li>
+      <li><strong>U-Turn</strong> — if all three sides blocked, perform ~165° pivot to backtrack.</li>
+    </ol>
+
+    <pre><code>void loop() {
+  pidStep();
+  if(right()){
+    driveForward(basespeed);
+    delay(50); stopMotors(); delay(150);
+    pivotToAngle(tangle - 79);
+    stopMotors(); delay(150);
+    t = millis();
+    while(millis() - t &lt; 650) { pidStep(); }
+  }
+  else if(left() &amp;&amp; !forward() &amp;&amp; !right()){
+    driveForward(basespeed);
+    delay(50); stopMotors(); delay(150);
+    pivotToAngle(tangle + 79);
+    stopMotors(); delay(100);
+    t = millis();
+    while(millis() - t &lt; 650) { pidStep(); }
+  }
+  else if(!left() &amp;&amp; !forward() &amp;&amp; !right()){
+    pivotToAngle(tangle - 165);  // U-turn
+    delay(50);
+  }
+}</code></pre>
+
+    <h2>PID tuning parameters</h2>
+
+    <p>These values were calibrated specifically for the robot's weight, motor response, and maze surface:</p>
+
+    <pre><code>// Walking PID
+float Kp = 15;
+float Ki = 0.05;
+float Kd = 0.1;
+
+// Turn PID
+float p_turn = 40.0;
+float d_turn = 3;
+
+// Speed limits
+int basespeed = 180;
+int maxspeed  = 255;
+int minspeed  = 100;
+int turn_base_speed = 30;
+int max_pwm = 70;</code></pre>
+
+    <h2>Setup &amp; calibration</h2>
+
+    <p>On power-up, the robot waits for the start button. During this time, the MPU6050 calculates gyro offsets — the robot must stay perfectly still. The LED blinks to indicate waiting state:</p>
+
+    <pre><code>void setup() {
+  Wire.begin();
+  mpu6050.begin();
+  // ... pinModes ...
+
+  mpu6050.calcGyroOffsets(true);
+
+  while (digitalRead(startButton) == LOW) {
+    digitalWrite(led, (millis() / 500) % 2);  // Blink LED
+    delay(50);
+  }
+}</code></pre>
+
+    <h2>Key takeaways</h2>
+
+    <ul>
+      <li><strong>Dual PID systems</strong> — one for straight-line stability, one for precise pivots — compensate for hardware imperfections.</li>
+      <li>The <strong>Right-Hand Rule</strong> guarantees maze solving for simply-connected mazes (no loops).</li>
+      <li><strong>Gyro-based turning</strong> is battery-agnostic — unlike timer-based turns, it works the same at full or low battery.</li>
+      <li><strong>Sensor averaging</strong> (<code>READINGS = 4</code>) filters out ultrasonic noise common in reflective maze walls.</li>
+    </ul>
+
+  </article>
+
+</main>
+
+<footer>// bernini — built with spite and monospace</footer>
+
+<script src="/assets/app.js"></script>
+</body>
+</html>
