@@ -1,6 +1,312 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>bernini</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+
+<canvas id="matrix" aria-hidden="true"></canvas>
+
+<div class="side-gutter left">
+<pre class="side-texture left" aria-hidden="true">   ┌─────────┐
+   │ ▓▓▓▓▓▓▓ │
+┌──┤ ░░░░░░░ ├──┐
+│  │ ▓▓▓▓▓▓▓ │  │
+│  └────┬────┘  │
+│       │       │
+●───────●───────●
+│       │       │
+│   ┌───┴───┐   │
+│   │  ▚▚▚  │   │
+│   │ ▚▚▚▚▚ │   │
+│   │  ▚▚▚  │   │
+│   └───┬───┘   │
+│       │       │
+●───────●───────●
+│       │       │
+│  ┌────┴────┐  │
+│  │ ▒▒▒▒▒▒▒ │  │
+└──┤ ███████ ├──┘
+   │ ▒▒▒▒▒▒▒ │
+   └────┬────┘
+        │
+┌───────┴───────┐
+│ ▚▚▚  ░░░  ▚▚▚ │
+└───────┬───────┘
+        │
+╔═══════╧═══════╗
+║ ▓▓▓ ░░░ ▓▓▓ ░ ║
+║ ░░░ ▓▓▓ ░░░ ▓ ║
+║ ▓▓▓ ░░░ ▓▓▓ ░ ║
+╚═══════╤═══════╝
+        │
+┌───────┴───────┐
+│   ┌───┐ ┌───┐ │
+│   │▓▓▓│ │░░░│ │
+│   └─┬─┘ └─┬─┘ │
+└─────┼─────┼───┘
+      ●     ●
+      │     │
+┌─────┴─────┴───┐
+│ ▚▚▚  ▓▓▓  ░░░ │
+│ ░░░  ▚▚▚  ▓▓▓ │
+│ ▓▓▓  ░░░  ▚▚▚ │└───────┬───────┘
+        │
+╔═══════╧═══════╗
+║ ▓▓▓▓▓▓▓▓▓▓▓▓▓ ║
+║ ░░░░░░░░░░░░░ ║
+║ ▓▓▓▓▓▓▓▓▓▓▓▓▓ ║
+╚═══════════════╝</pre>
+<pre class="side-texture left" aria-hidden="true">   ┌─────────┐
+   │ ▓▓▓▓▓▓▓ │
+┌──┤ ░░░░░░░ ├──┐
+│  │ ▓▓▓▓▓▓▓ │  │
+│  └────┬────┘  │
+│       │       │
+●───────●───────●
+│       │       │
+│   ┌───┴───┐   │
+│   │  ▚▚▚  │   │
+│   │ ▚▚▚▚▚ │   │
+│   │  ▚▚▚  │   │
+│   └───┬───┘   │
+│       │       │
+●───────●───────●
+│       │       │
+│  ┌────┴────┐  │
+│  │ ▒▒▒▒▒▒▒ │  │
+└──┤ ███████ ├──┘
+   │ ▒▒▒▒▒▒▒ │
+   └────┬────┘
+        │
+┌───────┴───────┐
+│ ▚▚▚  ░░░  ▚▚▚ │
+└───────┬───────┘
+        │
+╔═══════╧═══════╗
+║ ▓▓▓ ░░░ ▓▓▓ ░ ║
+║ ░░░ ▓▓▓ ░░░ ▓ ║
+║ ▓▓▓ ░░░ ▓▓▓ ░ ║
+╚═══════╤═══════╝
+        │
+┌───────┴───────┐
+│   ┌───┐ ┌───┐ │
+│   │▓▓▓│ │░░░│ │
+│   └─┬─┘ └─┬─┘ │
+└─────┼─────┼───┘
+      ●     ●
+      │     │
+┌─────┴─────┴───┐
+│ ▚▚▚  ▓▓▓  ░░░ │
+│ ░░░  ▚▚▚  ▓▓▓ │
+│ ▓▓▓  ░░░  ▚▚▚ │
+└───────┬───────┘
+        │
+╔═══════╧═══════╗
+║ ▓▓▓▓▓▓▓▓▓▓▓▓▓ ║
+║ ░░░░░░░░░░░░░ ║
+║ ▓▓▓▓▓▓▓▓▓▓▓▓▓ ║
+╚═══════════════╝</pre>
+</div>
+
+<div class="side-gutter right">
+<pre class="side-texture right" aria-hidden="true">   ┌─────────┐
+   │ ░░░░░░░ │
+┌──┤ ▓▓▓▓▓▓▓ ├──┐
+│  │ ░░░░░░░ │  │
+│  └────┬────┘  │
+│       │       │
+●───────●───────●
+│       │       │
+│  ┌────┴────┐  │
+│  │  ░░░░░  │  │
+│  │ ░░░░░░░ │  │
+│  │  ░░░░░  │  │
+│  └────┬────┘  │
+│       │       │
+●───────●───────●
+│       │       │
+│   ┌───┴───┐   │
+│   │ █████ │   │
+└───┤ █████ ├───┘
+    │ █████ │
+    └───┬───┘
+        │
+╔═══════╧═══════╗
+║ ░░░  ▓▓▓  ░░░ ║
+╚═══════╤═══════╝
+        │
+┌───────┴───────┐
+│  ┌───┐ ┌───┐  │
+│  │░░░│ │▓▓▓│  │
+│  └─┬─┘ └─┬─┘  │
+└────┼─────┼────┘
+     ●     ●
+     │     │
+╔════╧═════╧════╗
+║ ▓▓▓ ░░░ ▓▓▓ ░ ║
+║ ░░░ ▓▓▓ ░░░ ▓ ║
+╚═══════╤═══════╝
+        │
+┌───────┴───────┐
+│  ┌─────────┐  │
+│  │ ▒▒▒▒▒▒▒ │  │
+│  │ ███████ │  │
+│  └────┬────┘  │
+└───────┼───────┘
+        │
+        ●
+        │
+┌───────┴───────┐
+│ ▚ ░ ▓ ▚ ░ ▓ ▚ │
+│ ░ ▓ ▚ ░ ▓ ▚ ░ │
+└───────┬───────┘</pre>
+<pre class="side-texture right" aria-hidden="true">   ┌─────────┐
+   │ ░░░░░░░ │
+┌──┤ ▓▓▓▓▓▓▓ ├──┐
+│  │ ░░░░░░░ │  │
+│  └────┬────┘  │
+│       │       │
+●───────●───────●
+│       │       │
+│  ┌────┴────┐  │
+│  │  ░░░░░  │  │
+│  │ ░░░░░░░ │  │
+│  │  ░░░░░  │  │
+│  └────┬────┘  │
+│       │       │
+●───────●───────●
+│       │       │
+│   ┌───┴───┐   │
+│   │ █████ │   │
+└───┤ █████ ├───┘
+    │ █████ │
+    └───┬───┘
+        │
+╔═══════╧═══════╗
+║ ░░░  ▓▓▓  ░░░ ║
+╚═══════╤═══════╝
+        │
+┌───────┴───────┐
+│  ┌───┐ ┌───┐  │
+│  │░░░│ │▓▓▓│  │
+│  └─┬─┘ └─┬─┘  │
+└────┼─────┼────┘
+     ●     ●
+     │     │
+╔════╧═════╧════╗
+║ ▓▓▓ ░░░ ▓▓▓ ░ ║
+║ ░░░ ▓▓▓ ░░░ ▓ ║
+╚═══════╤═══════╝
+        │
+┌───────┴───────┐
+│  ┌─────────┐  │
+│  │ ▒▒▒▒▒▒▒ │  │
+│  │ ███████ │  │
+│  └────┬────┘  │
+└───────┼───────┘
+        │
+        ●
+        │
+┌───────┴───────┐
+│ ▚ ░ ▓ ▚ ░ ▓ ▚ │
+│ ░ ▓ ▚ ░ ▓ ▚ ░ │
+└───────┬───────┘</pre>
+</div>
+
+<header class="metal-band"></header>
+
+<main>
+
+  <pre class="hero-mark" aria-label="bernini"><span class="hi">██</span><span class="md">▀▀▄   ▄</span><span class="hi">▄▄▄</span><span class="md"> █</span><span class="hi">▄▄</span><span class="md">▀▀▄  █</span><span class="hi">▄</span><span class="md">▀█▄  ▄</span><span class="hi">▄▄</span><span class="md"> █</span><span class="hi">▄</span><span class="md">▀█▄  ▄</span><span class="hi">▄▄</span>
+<span class="hi">█</span><span class="hi">█</span><span class="md">  </span><span class="hi">█▄</span><span class="md"> </span><span class="hi">▄█</span><span class="md"> </span><span class="hi">▀▀</span><span class="md">  </span><span class="hi">██</span><span class="md">  </span><span class="hi">█▄</span><span class="md"> ▓</span><span class="hi">█</span><span class="md">  </span><span class="hi">█▄</span><span class="md">  </span><span class="hi">▀</span><span class="hi">█</span><span class="md"> ▓</span><span class="hi">█</span><span class="md">  </span><span class="hi">█▄</span><span class="md">  </span><span class="hi">▀</span><span class="hi">█</span>
+<span class="hi">██</span><span class="md">  </span><span class="hi">▀</span><span class="md">▀ </span><span class="hi">██</span><span class="md">     </span><span class="hi">██</span><span class="md">  </span><span class="hi">█▀</span><span class="md"> </span><span class="hi">██</span><span class="md">  </span><span class="hi">██</span><span class="md"> ▄</span><span class="hi">█</span><span class="hi">▄</span><span class="md"> </span><span class="hi">██</span><span class="md">  </span><span class="hi">██</span><span class="md"> ▄</span><span class="hi">█</span><span class="hi">▄</span>
+<span class="hi">██</span><span class="md">▀▀▄  </span><span class="hi">▓▓</span><span class="md">▄▄   </span><span class="hi">██</span><span class="md">▄▄▀  </span><span class="hi">██</span><span class="md">  </span><span class="hi">██</span><span class="md">  </span><span class="hi">██</span><span class="md"> </span><span class="hi">██</span><span class="md">  </span><span class="hi">██</span><span class="md">  </span><span class="hi">██</span>
+<span class="lo">▓▓</span><span class="md">  </span><span class="lo">▓▄</span><span class="md"> </span><span class="lo">▓▓</span><span class="md">     </span><span class="lo">▓▓</span><span class="md">  </span><span class="lo">▄</span><span class="md">▄ </span><span class="lo">▓▓</span><span class="md">  </span><span class="lo">▓▓</span><span class="md">  </span><span class="lo">▓▓</span><span class="md"> </span><span class="lo">▓▓</span><span class="md">  </span><span class="lo">▓▓</span><span class="md">  </span><span class="lo">▓▓</span>
+<span class="lo">█</span><span class="lo">█</span><span class="md">  </span><span class="lo">█▀</span><span class="md"> </span><span class="lo">▀█</span><span class="md">     </span><span class="lo">██</span><span class="md">  </span><span class="lo">██</span><span class="md"> </span><span class="lo">██</span><span class="md">  </span><span class="lo">██</span><span class="md"> ▄</span><span class="lo">██</span><span class="md"> </span><span class="lo">██</span><span class="md">  </span><span class="lo">██</span><span class="md"> ▄</span><span class="lo">██</span>
+<span class="lo">██▄</span><span class="md">▄▀   ▀</span><span class="lo">▀▀ </span><span class="md"> ▄</span><span class="lo">▀▀</span><span class="md">  </span><span class="lo">▀▀</span><span class="md"> </span><span class="lo">▀</span><span class="md">▀  ██  ▀</span><span class="lo">▀</span><span class="md"> </span><span class="lo">▀</span><span class="md">▀  ██  ▀</span><span class="lo">▀</span></pre>
+
+  <nav class="nav-strip">
+    <a href="/" class="active">~/</a>
+    <a href="/posts.html">~/posts</a>
+    <a href="/projects.html">~/projects</a>
+    <a href="https://github.com/bernini">~/github</a>
+  </nav>
+
+  <section class="terminal-window">
+    <div class="term-bar"><span></span><span></span><span></span></div>
+    <div class="term-body">
+      <p><span class="prompt">bernini@gh:~$</span> whoami</p>
+      <p>bernini — security // networking // robotics // tools</p>
+      <p><span class="prompt">bernini@gh:~$</span> cat about.txt</p>
+      <p>I break things, wire things, and occasionally make them move.<br>
+         Notes and projects live here. Everything else is noise.</p>
+      <p><span class="prompt">bernini@gh:~$</span> <span class="cursor">█</span></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-row">
+      <h2 class="section-head">▚▚ recent posts</h2>
+      <a class="view-all" href="/posts.html">[ view all → ]</a>
+    </div>
+    <p class="section-sub">latest 3</p>
+    <ul class="post-list">
+      <li>
+        <a href="/content/posts/pid-explained.html">
+          <span class="tag">robotics</span>
+          <span>
+            <span class="title">PID Controller Explained</span>
+            <span class="summary">P, I, D — what each term does, how to tune them, and where they show up.</span>
+          </span>
+          <span class="date">2026-05-07</span>
+        </a>
+      </li>
+      <li>
+        <a href="/content/posts/org-mode-guide.html">
+          <span class="tag">tools</span>
+          <span>
+            <span class="title">Org-mode: The Only Guide You'll Ever Need</span>
+            <span class="summary">Headings, lists, links, TODO states, tags, exports — everything to get started.</span>
+          </span>
+          <span class="date">2026-05-07</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="section-row">
+      <h2 class="section-head">▚▚ featured projects</h2>
+      <a class="view-all" href="/projects.html">[ view all → ]</a>
+    </div>
+    <p class="section-sub">latest 3</p>
+    <div class="project-grid">
+      <div class="project-card">
+        <span class="pc-tag">robotics</span>
+        <h3>maze-solving robot</h3>
+        <p>Autonomous wall-following robot using MPU6050 + dual PID. Competed at INSAT Robolympix 4.0.</p>
+        <div class="links">
+          <a href="https://github.com/bernini">[repo]</a>
+          <a href="/content/projects/maze-solving-robot.html">[read →]</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>// bernini — built with spite and monospace</footer>
+
+<script src="/assets/app.js"></script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>barnoun</title>
