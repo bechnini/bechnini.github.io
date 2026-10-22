@@ -1,5 +1,5 @@
 (function(){
-  // Matrix rain
+  // Cyberpunk Matrix rain (Cyan + Red)
   const canvas = document.getElementById('matrix');
   if (canvas){
     const ctx = canvas.getContext('2d');
@@ -12,15 +12,21 @@
       drops=Array.from({length:cols},()=>Math.random()*rows);
     }
     function step(){
-      ctx.fillStyle='rgba(13,9,4,0.10)'; ctx.fillRect(0,0,canvas.width,canvas.height);
+      // Dark red-black fade
+      ctx.fillStyle='rgba(18,5,9,0.10)'; ctx.fillRect(0,0,canvas.width,canvas.height);
       ctx.font=fontSize+'px "IBM Plex Mono", monospace'; ctx.textBaseline='top';
+      
       for(let x=0;x<cols;x++){
         const y=Math.floor(drops[x]);
         if(y>=0&&y<rows){
           if(Math.random()<.35) grid[y][x]=chars[Math.random()<.5?0:1];
-          ctx.fillStyle='rgba(255,200,90,0.55)'; ctx.fillText(grid[y][x],x*fontSize,y*fontSize);
-          if(y-1>=0){ctx.fillStyle='rgba(255,176,0,0.28)'; ctx.fillText(grid[y-1][x],x*fontSize,(y-1)*fontSize);}
-          if(y-2>=0){ctx.fillStyle='rgba(179,122,0,0.15)'; ctx.fillText(grid[y-2][x],x*fontSize,(y-2)*fontSize);}
+          
+          // Head is bright cyan
+          ctx.fillStyle='rgba(0,240,255,0.8)'; ctx.fillText(grid[y][x],x*fontSize,y*fontSize);
+          
+          // Trailing tails fade into red
+          if(y-1>=0){ctx.fillStyle='rgba(255,0,60,0.4)'; ctx.fillText(grid[y-1][x],x*fontSize,(y-1)*fontSize);}
+          if(y-2>=0){ctx.fillStyle='rgba(138,0,33,0.15)'; ctx.fillText(grid[y-2][x],x*fontSize,(y-2)*fontSize);}
         }
         drops[x]+=speed*(0.6+Math.random()*0.8);
         if(drops[x]>rows+Math.random()*30) drops[x]=-Math.random()*20;
