@@ -11,7 +11,6 @@
       drops=Array.from({length:cols},()=>Math.random()*rows);
     }
     function step(){
-      // Black fade, not red fade
       ctx.fillStyle='rgba(12,8,9,0.10)'; ctx.fillRect(0,0,canvas.width,canvas.height);
       ctx.font=fontSize+'px "IBM Plex Mono", monospace'; ctx.textBaseline='top';
       
@@ -20,10 +19,15 @@
         if(y>=0&&y<rows){
           if(Math.random()<.35) grid[y][x]=chars[Math.random()<.5?0:1];
           
-          // Head is deep red
-          ctx.fillStyle='rgba(255,0,60,0.6)'; ctx.fillText(grid[y][x],x*fontSize,y*fontSize);
-          // Tail is dark
-          if(y-1>=0){ctx.fillStyle='rgba(138,0,21,0.3)'; ctx.fillText(grid[y-1][x],x*fontSize,(y-1)*fontSize);}
+          // Matrix rain mixes Blue and Red
+          const isBlue = Math.random() > 0.5;
+          ctx.fillStyle = isBlue ? 'rgba(0,168,255,0.6)' : 'rgba(255,0,60,0.6)'; 
+          ctx.fillText(grid[y][x],x*fontSize,y*fontSize);
+          
+          if(y-1>=0){
+            ctx.fillStyle = isBlue ? 'rgba(0,95,153,0.3)' : 'rgba(138,0,21,0.3)';
+            ctx.fillText(grid[y-1][x],x*fontSize,(y-1)*fontSize);
+          }
         }
         drops[x]+=speed*(0.6+Math.random()*0.8);
         if(drops[x]>rows+Math.random()*30) drops[x]=-Math.random()*20;
