@@ -11,7 +11,8 @@
       drops=Array.from({length:cols},()=>Math.random()*rows);
     }
     function step(){
-      ctx.fillStyle='rgba(12,8,9,0.10)'; ctx.fillRect(0,0,canvas.width,canvas.height);
+      // Deep black-red fade
+      ctx.fillStyle='rgba(10,5,7,0.10)'; ctx.fillRect(0,0,canvas.width,canvas.height);
       ctx.font=fontSize+'px "IBM Plex Mono", monospace'; ctx.textBaseline='top';
       
       for(let x=0;x<cols;x++){
@@ -19,13 +20,13 @@
         if(y>=0&&y<rows){
           if(Math.random()<.35) grid[y][x]=chars[Math.random()<.5?0:1];
           
-          // Matrix rain mixes Blue and Red
-          const isBlue = Math.random() > 0.5;
-          ctx.fillStyle = isBlue ? 'rgba(0,168,255,0.6)' : 'rgba(255,0,60,0.6)'; 
+          // Rain is deep red, with occasional icy teal drops
+          const isTeal = Math.random() > 0.85; 
+          ctx.fillStyle = isTeal ? 'rgba(92,225,230,0.6)' : 'rgba(217,0,43,0.6)'; 
           ctx.fillText(grid[y][x],x*fontSize,y*fontSize);
           
           if(y-1>=0){
-            ctx.fillStyle = isBlue ? 'rgba(0,95,153,0.3)' : 'rgba(138,0,21,0.3)';
+            ctx.fillStyle = isTeal ? 'rgba(28,74,77,0.3)' : 'rgba(92,0,18,0.3)';
             ctx.fillText(grid[y-1][x],x*fontSize,(y-1)*fontSize);
           }
         }
