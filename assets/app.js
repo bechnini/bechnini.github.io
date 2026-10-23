@@ -1,4 +1,5 @@
 (function(){
+  // Matrix rain
   const canvas = document.getElementById('matrix');
   if (canvas){
     const ctx = canvas.getContext('2d');
@@ -11,24 +12,15 @@
       drops=Array.from({length:cols},()=>Math.random()*rows);
     }
     function step(){
-      // Deep black-red fade
-      ctx.fillStyle='rgba(10,5,7,0.10)'; ctx.fillRect(0,0,canvas.width,canvas.height);
+      ctx.fillStyle='rgba(13,9,4,0.10)'; ctx.fillRect(0,0,canvas.width,canvas.height);
       ctx.font=fontSize+'px "IBM Plex Mono", monospace'; ctx.textBaseline='top';
-      
       for(let x=0;x<cols;x++){
         const y=Math.floor(drops[x]);
         if(y>=0&&y<rows){
           if(Math.random()<.35) grid[y][x]=chars[Math.random()<.5?0:1];
-          
-          // Rain is deep red, with occasional icy teal drops
-          const isTeal = Math.random() > 0.85; 
-          ctx.fillStyle = isTeal ? 'rgba(92,225,230,0.6)' : 'rgba(217,0,43,0.6)'; 
-          ctx.fillText(grid[y][x],x*fontSize,y*fontSize);
-          
-          if(y-1>=0){
-            ctx.fillStyle = isTeal ? 'rgba(28,74,77,0.3)' : 'rgba(92,0,18,0.3)';
-            ctx.fillText(grid[y-1][x],x*fontSize,(y-1)*fontSize);
-          }
+          ctx.fillStyle='rgba(255,200,90,0.55)'; ctx.fillText(grid[y][x],x*fontSize,y*fontSize);
+          if(y-1>=0){ctx.fillStyle='rgba(255,176,0,0.28)'; ctx.fillText(grid[y-1][x],x*fontSize,(y-1)*fontSize);}
+          if(y-2>=0){ctx.fillStyle='rgba(179,122,0,0.15)'; ctx.fillText(grid[y-2][x],x*fontSize,(y-2)*fontSize);}
         }
         drops[x]+=speed*(0.6+Math.random()*0.8);
         if(drops[x]>rows+Math.random()*30) drops[x]=-Math.random()*20;
@@ -37,6 +29,7 @@
     addEventListener('resize',resize); resize(); setInterval(step,55);
   }
 
+  // Side gutter scroll
   const leftStrips  = document.querySelectorAll('.side-gutter.left  .side-texture');
   const rightStrips = document.querySelectorAll('.side-gutter.right .side-texture');
   if (leftStrips.length && rightStrips.length){
