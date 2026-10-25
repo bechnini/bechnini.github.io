@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Department of Government Leaks // bernini</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+
+<canvas id="matrix" aria-hidden="true"></canvas>
+
+<div class="side-gutter left">
+<pre class="side-texture left" aria-hidden="true">   ┌─────────┐
+   │ ▓▓▓▓▓▓▓ │
+┌──┤ ░░░░░░░ ├──┐
+│  │ ▓▓▓▓▓▓▓ │  │
+│  └────┬────┘  │
+│       │       │
+●───────●───────●
+│       │       │
+│   ┌───┴───┐   │
+│   │  ▚▚▚  │   │
+│   │ ▚▚▚▚▚ │   │
+│   │  ▚▚▚  │   │
+│   └───┬───┘   │
+│       │       │
+●───────●───────●
+│       │       │
+│  ┌────┴────┐  │
+│  │ ▒▒▒▒▒▒▒ │  │
+└──┤ ███████ ├──┘
+   │ ▒▒▒▒▒▒▒ │
+   └────┬────┘
+        │
+┌───────┴───────┐
+│ ▚▚▚  ░░░  ▚▚▚ │
+└───────┬───────┘
+        │
+╔═══════╧═══════╗
+║ ▓▓▓ ░░░ ▓▓▓ ░ ║
+║ ░░░ ▓▓▓ ░░░ ▓ ║
+║ ▓▓▓ ░░░ ▓▓▓ ░ ║
+╚═══════╤═══════╝
+        │
+┌───────┴───────┐
+│   ┌───┐ ┌───┐ │
+│   │▓▓▓│ │░░░│ │
+│   └─┬─┘ └─┬─┘ │
+└─────┼─────┼───┘
+      ●     ●
+      │     │
+┌─────┴─────┴───┐
+│ ▚▚▚  ▓▓▓  ░░░ │
+│ ░░░  ▚▚▚  ▓▓▓ │
+│ ▓▓▓  ░░░  ▚▚▚ │
+└───────┬───────┘
+        │
+╔═══════╧═══════╗
+║ ▓▓▓▓▓▓▓▓▓▓▓▓▓ ║
+║ ░░░░░░░░░░░░░ ║
+║ ▓▓▓▓▓▓▓▓▓▓▓▓▓ ║
+╚═══════════════╝</pre>
+<pre class="side-texture left" aria-hidden="true">   ┌─────────┐
+   │ ▓▓▓▓▓▓▓ │
+┌──┤ ░░░░░░░ ├──┐
+│  │ ▓▓▓▓▓▓▓ │  │
+│  └────┬────┘  │
+│       │       │
+●───────●───────●
+│       │       │
+│   ┌───┴───┐   │
+│   │  ▚▚▚  │   │
+│   │ ▚▚▚▚▚ │   │
+│   │  ▚▚▚  │   │
+│   └───┬───┘   │
+│       │       │
+●───────●───────●
+│       │       │
+│  ┌────┴────┐  │
+│  │ ▒▒▒▒▒▒▒ │  │
+└──┤ ███████ ├──┘
+   │ ▒▒▒▒▒▒▒ │
+   └────┬────┘
+        │
+┌───────┴───────┐
+│ ▚▚▚  ░░░  ▚▚▚ │
+└───────┬───────┘
+        │
+╔═══════╧═══════╗
+║ ▓▓▓ ░░░ ▓▓▓ ░ ║
+║ ░░░ ▓▓▓ ░░░ ▓ ║
+║ ▓▓▓ ░░░ ▓▓▓ ░ ║
+╚═══════╤═══════╝
+        │
+┌───────┴───────┐
+│   ┌───┐ ┌───┐ │
+│   │▓▓▓│ │░░░│ │
+│   └─┬─┘ └─┬─┘ │
+└─────┼─────┼───┘
+      ●     ●
+      │     │
+┌─────┴─────┴───┐
+│ ▚▚▚  ▓▓▓  ░░░ │
+│ ░░░  ▚▚▚  ▓▓▓ │
+│ ▓▓▓  ░░░  ▚▚▚ │
+└───────┬───────┘
+        │
+╔═══════╧═══════╗
+║ ▓▓▓▓▓▓▓▓▓▓▓▓▓ ║
+║ ░░░░░░░░░░░░░ ║
+║ ▓▓▓▓▓▓▓▓▓▓▓▓▓ ║
+╚═══════════════╝</pre>
+</div>
+
+<div class="side-gutter right">
+<pre class="side-texture right" aria-hidden="true">   ┌─────────┐
+   │ ░░░░░░░ │
+┌──┤ ▓▓▓▓▓▓▓ ├──┐
+│  │ ░░░░░░░ │  │
+│  └────┬────┘  │
+│       │       │
+●───────●───────●
+│       │       │
+│  ┌────┴────┐  │
+│  │  ░░░░░  │  │
+│  │ ░░░░░░░ │  │
+│  │  ░░░░░  │  │
+│  └────┬────┘  │
+│       │       │
+●───────●───────●
+│       │       │
+│   ┌───┴───┐   │
+│   │ █████ │   │
+└───┤ █████ ├───┘
+    │ █████ │
+    └───┬───┘
+        │
+╔═══════╧═══════╗
+║ ░░░  ▓▓▓  ░░░ ║
+╚═══════╤═══════╝
+        │
+┌───────┴───────┐
+│  ┌───┐ ┌───┐  │
+│  │░░░│ │▓▓▓│  │
+│  └─┬─┘ └─┬─┘  │
+└────┼─────┼────┘
+     ●     ●
+     │     │
+╔════╧═════╧════╗
+║ ▓▓▓ ░░░ ▓▓▓ ░ ║
+║ ░░░ ▓▓▓ ░░░ ▓ ║
+╚═══════╤═══════╝
+        │
+┌───────┴───────┐
+│  ┌─────────┐  │
+│  │ ▒▒▒▒▒▒▒ │  │
+│  │ ███████ │  │
+│  └────┬────┘  │
+└───────┼───────┘
+        │
+        ●
+        │
+┌───────┴───────┐
+│ ▚ ░ ▓ ▚ ░ ▓ ▚ │
+│ ░ ▓ ▚ ░ ▓ ▚ ░ │
+└───────┬───────┘</pre>
+<pre class="side-texture right" aria-hidden="true">   ┌─────────┐
+   │ ░░░░░░░ │
+┌──┤ ▓▓▓▓▓▓▓ ├──┐
+│  │ ░░░░░░░ │  │
+│  └────┬────┘  │
+│       │       │
+●───────●───────●
+│       │       │
+│  ┌────┴────┐  │
+│  │  ░░░░░  │  │
+│  │ ░░░░░░░ │  │
+│  │  ░░░░░  │  │
+│  └────┬────┘  │
+│       │       │
+●───────●───────●
+│       │       │
+│   ┌───┴───┐   │
+│   │ █████ │   │
+└───┤ █████ ├───┘
+    │ █████ │
+    └───┬───┘
+        │
+╔═══════╧═══════╗
+║ ░░░  ▓▓▓  ░░░ ║
+╚═══════╤═══════╝
+        │
+┌───────┴───────┐
+│  ┌───┐ ┌───┐  │
+│  │░░░│ │▓▓▓│  │
+│  └─┬─┘ └─┬─┘  │
+└────┼─────┼────┘
+     ●     ●
+     │     │
+╔════╧═════╧════╗
+║ ▓▓▓ ░░░ ▓▓▓ ░ ║
+║ ░░░ ▓▓▓ ░░░ ▓ ║
+╚═══════╤═══════╝
+        │
+┌───────┴───────┐
+│  ┌─────────┐  │
+│  │ ▒▒▒▒▒▒▒ │  │
+│  │ ███████ │  │
+│  └────┬────┘  │
+└───────┼───────┘
+        │
+        ●
+        │
+┌───────┴───────┐
+│ ▚ ░ ▓ ▚ ░ ▓ ▚ │
+│ ░ ▓ ▚ ░ ▓ ▚ ░ │
+└───────┬───────┘</pre>
+</div>
+
+<header class="metal-band"></header>
+
+<main class="reading">
+
+  <nav class="nav-strip">
+    <a href="/">~/</a>
+    <a href="/posts.html" class="active">~/posts</a>
+    <a href="/projects.html">~/projects</a>
+    <a href="https://github.com/bechnini">~/github</a>
+  </nav>
+
+  <article class="reading">
+
+    <a class="back" href="/posts.html">[ ← back to posts ]</a>
+
+    <header>
+      <h1>Department of Government Leaks</h1>
+      <div class="meta">
+        <span>security</span>
+        <span class="dot">·</span>
+        <span>2026-09-30</span>
+      </div>
+    </header>
+
+    <p><em>This research is presented to you by <strong>bernini</strong> and <strong>knollbyte</strong>.</em></p>
+
+    <p>On 30-09-2026, the US government launched america.gov, a chatbot designed to help civilians with federal and governmental services. Later that day, @0xBOYD posted this tweet:</p>
+
+    <img src="/content/posts/imgs/dogl/boyd.jpg" alt="Tweet by 0xBOYD" style="width:100%; border:1px solid var(--line); margin-bottom:18px;">
+
+    <p>And it exploded. Hours later, bennjordan posted this on his story:</p>
+
+    <img src="/content/posts/imgs/dogl/benjordan.jpg" alt="Benjordan Instagram story" style="width:100%; border:1px solid var(--line); margin-bottom:18px;">
+
+    <p>After the bennjordan Instagram story and the @0xBOYD tweet, knollbyte and I tried tinkering with the chatbot until we found this:</p>
+
+    <img src="/content/posts/imgs/dogl/chatbot.png" alt="Chatbot responses" style="width:100%; border:1px solid var(--line); margin-bottom:18px;">
+
+    <p>And this is where it gets interesting. The websites the chatbot gave us do not work without permission, and as you can see, those are military websites. The only one that worked is the semper-admin-portal, and oh boy, the fun starts now.</p>
+
+    <blockquote>PS: from now on we are going to refer to semper-admin-portal as SAP.</blockquote>
+
+    <p>SAP is an internal guide made for the US Marine Corps administrative staff. While the system itself is marked <strong>UNCLASSIFIED</strong>, it was never meant to be publicly accessible on the open internet. We will see why as we talk more about this platform.</p>
+
+    <img src="/content/posts/imgs/dogl/sap_overview.png" alt="SAP Overview" style="width:100%; border:1px solid var(--line); margin-bottom:18px;">
+
+    <p>When entering the main website, it asks you to pick one of these four roles: Marines / Leader / Commander / Admin. Based on that, you choose topics related to your role (Trainings, military pay per role, awards, and a lot of other stuff).</p>
+
+    <p>The interesting thing we found is the authentication mechanism it redirects to. In any topic in one of the roles you choose, the website gives you links to the DoD e-learning ecosystem. You have to sign in with a Marine Corps Microsoft account. There is no mention of this kind of external login portal online, and literally anything else that needed a sign-in used a Common Access Card (CAC) or a Navy Microsoft account.</p>
+
+    <img src="/content/posts/imgs/dogl/microsoft_login.png" alt="Microsoft Login" style="width:100%; border:1px solid var(--line); margin-bottom:18px;">
+
+    <p>Since this, we thought that this is more serious than we initially thought. While browsing the links, we found this:</p>
+
+    <p><a href="https://www.doncio.navy.mil/FileHandler.ashx?id=24946" target="_blank" rel="noopener">https://www.doncio.navy.mil/FileHandler.ashx?id=24946</a></p>
+
+    <p>As you noticed, there is an ID, and by changing that ID we were able to pull different files off this Navy website. If the IDs are enumerable, it may be possible to scrape a significant portion of the files hosted there. We only tested a few IDs to confirm the behavior and did not go further.</p>
+
+    <p>Back to SAP: there is an option to sort out specific stuff (links, videos, reports, and tools).</p>
+
+    <img src="/content/posts/imgs/dogl/reference_menu.png" alt="Reference Menu" style="width:100%; border:1px solid var(--line); margin-bottom:18px;">
+
+    <p>Which makes this the perfect reconnaissance and administrative tool about the US military. Xo Xo</p>
+
+    <h2>TOOLS</h2>
+
+    <p>This is where it gets even more interesting. There is a tools section on this website, and we are going to talk about each one of them. We couldn't access some of the tools because they need a login that we don't have, but the ones we could access are highly sensitive.</p>
+
+    <h3>Interesting Tools</h3>
+
+    <h4>1. LINEAGE</h4>
+
+    <img src="/content/posts/imgs/dogl/lineage_tool.png" alt="Lineage Tool" style="width:100%; border:1px solid var(--line); margin-bottom:18px;">
+
+    <p>Lineage is a metadata extraction tool. It reads a document and reports what it already says about its own origin. According to the portal, this is used to comply with NAVMC 5239.1 (Guidance on Generative Artificial Intelligence).</p>
+
+    <h4>2. NEXUS</h4>
+
+    <img src="/content/posts/imgs/dogl/nexus_tool.png" alt="Nexus Tool" style="width:100%; border:1px solid var(--line); margin-bottom:18px;">
+
+    <p>Nexus is a military directives, messages, and publications monitoring tool made for the Marine Corps. The screenshot shows access to over 5,200 administrative messages (MARADMINs, ALMARs, etc.) dating back to 2025.</p>
+
+    <h4>3. SEMPER SCRIBE</h4>
+
+    <p>This is the most dangerous tool we found. Semper Scribe is a document generation tool used for making official government letters and military messages.</p>
+
+    <p>As you can see, the tool includes a classification dropdown menu that allows users to generate documents marked as <strong>CONFIDENTIAL, SECRET, or even TOP SECRET</strong>.</p>
+
+    <img src="/content/posts/imgs/dogl/scribe_classification_dropdown.png" alt="Classification Dropdown" style="width:100%; border:1px solid var(--line); margin-bottom:18px;">
+
+    <p>While this portal is unclassified, the ability to generate official Navy letterhead (complete with the Navy seal, Camp Lejeune unit addresses, and correct AMHS routing headers) and apply classification banners up to Top Secret makes this a perfect <strong>document forging tool</strong>.</p>
+
+    <p>If this tool gets into the wrong hands, a malicious actor could generate highly realistic, official-looking military orders, correspondence, or directives. This presents a severe risk of phishing, fraud, and social engineering against military personnel and government officials.</p>
+
+    <img src="/content/posts/imgs/dogl/scribe_amhs_message.png" alt="AMHS Message" style="width:100%; border:1px solid var(--line); margin-bottom:18px;">
+    <img src="/content/posts/imgs/dogl/scribe_executive_correspondence.png" alt="Executive Correspondence" style="width:100%; border:1px solid var(--line); margin-bottom:18px;">
+    <img src="/content/posts/imgs/dogl/scribe_document_types.png" alt="Document Types" style="width:100%; border:1px solid var(--line); margin-bottom:18px;">
+    <img src="/content/posts/imgs/dogl/scribe_warning.png" alt="Scribe Warning" style="width:100%; border:1px solid var(--line); margin-bottom:18px;">
+
+    <h4>4. Stay Marine</h4>
+
+    <p>This is a Marine career simulator game, though in one of its parts it exposes a lot of information about US military officials.</p>
+
+    <img src="/content/posts/imgs/dogl/stay_marine_game.png" alt="Stay Marine Game" style="width:100%; border:1px solid var(--line); margin-bottom:18px;">
+
+    <h3>Not Interesting Tools</h3>
+
+    <h4>1. USMC FITNESS REPORT EVALUATOR</h4>
+
+    <img src="/content/posts/imgs/dogl/fitness_evaluator.png" alt="Fitness Evaluator" style="width:100%; border:1px solid var(--line); margin-bottom:18px;">
+
+    <p>It's just a fitness evaluator for the Marine Corps.</p>
+
+    <h4>2. JUST ASKING</h4>
+
+    <img src="/content/posts/imgs/dogl/just_asking.png" alt="Just Asking" style="width:100%; border:1px solid var(--line); margin-bottom:18px;">
+
+    <p>It's an information exchange website that uses links to send messages to both parties.</p>
+
+    <h4>3. MARINE CORPS PAY ENTRY BASE DATE (PEBD) CALCULATOR</h4>
+
+    <img src="/content/posts/imgs/dogl/pebd_calculator.png" alt="PEBD Calculator" style="width:100%; border:1px solid var(--line); margin-bottom:18px;">
+
+    <h2>END</h2>
+
+    <blockquote>While this ecosystem is explicitly marked as an unofficial proof of concept, hosting it on a government domain (`cloud.gov`) and providing document generation tools capable of applying Top Secret and FOUO banners poses a severe operational security and forgery risk to the US military.</blockquote>
+
+  </article>
+
+</main>
+
+<footer>// bernini — built with spite and monospace</footer>
+
+<script src="/assets/app.js"></script>
+</body>
+</html>
